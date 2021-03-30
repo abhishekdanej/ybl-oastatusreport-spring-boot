@@ -18,14 +18,14 @@ import org.springframework.stereotype.Service;
 /*
 Node Ci ID		= 425d3b58e490c23aa6766fa5c21817b3
 Ci Type			= unix
-Ci Name			= ybblx1v0998sm01
-Primary DNS Name	= ybblx1v0998sm01.yesbank.com
+Ci Name			= servernt103
+Primary DNS Name	= servernt103.yl.com
 Operating System	= Linux Red Hat 7.4 3.10.0
 Processor Family	= x86_64
 IP Address		= fe80::250:56ff:feb6:db36
 IP Address		= fe80::250:56ff:feb6:166c
-IP Address		= 192.168.111.117
-IP Address		= 10.94.76.11
+IP Address		= 152.158.151.157
+IP Address		= 20.24.26.21
 Core ID			= bacb60e8-c4b0-75a0-17aa-df4b4ec0eb08
 OA Version		= 12.04.006
 */

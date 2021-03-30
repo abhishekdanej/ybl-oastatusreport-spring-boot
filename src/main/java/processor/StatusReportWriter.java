@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,16 +28,20 @@ public class StatusReportWriter {
 		
 		try {
 			FileWriter fw = new FileWriter(outFile);
+			fw.append("IP Address,Hostname,OS Version,Operations Agent Version,Operations Agent Status");
+			fw.append("\n");
 			recordList.forEach(r -> {
 					try {
 						fw.append(
-								r.getCiName()
+								r.getIpAddressList().stream().filter(e -> !e.contains("::")).collect(Collectors.joining(" "))
 								+ ","
-								+ r.getIpAddressList()
+								+ r.getCiName()
 								+ ","
 								+ r.getOperatingSystem()
 								+ ","
 								+ r.getOaVersion()
+								+ ","
+								+ Optional.ofNullable(r.getState()).orElse("")
 								+ "\n"
 								);
 					} catch (IOException e) {
