@@ -10,6 +10,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+/*
+ * Author: Abhishek Danej
+ * Date: 1 April 2021
+ */
+
 @SpringBootApplication
 public class YBLSpringBootApplication implements CommandLineRunner {
 	
@@ -28,14 +34,31 @@ public class YBLSpringBootApplication implements CommandLineRunner {
 	private StatusReportWriter reportWriter;
 	
 	public static void main(String[] args) {
-		SpringApplication.run(YBLSpringBootApplication.class, args);
+		try {
+			SpringApplication.run(YBLSpringBootApplication.class, args);
+		} catch (Exception e) {
+			printUsage();
+		}
+		
+	}
+
+	private static void printUsage() {
+		System.out.println("=== USAGE ===");
+		System.out.println("java -jar <jarFile> --opr_node_file=/opt/<path to node file>"
+				+ " --opr_hc_file=/opt/<path to hc file --output_dir=/opt/<output directory for report>");
+		System.out.println("OR");
+		System.out.println("java -jar <jarFile> --spring.config.location=/opt/<path_to_config_file>/config.properties");
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 		
 		log.info("Application starting.");
-		if(validatorService.validateInputs(args)) {
+		
+		boolean isValidated = false;
+			isValidated = validatorService.validateInputs(args); 
+		
+		if(isValidated) {
 			Map<String, Record> map = nodeReader.reader();
 			
 			List<Record> recordList = hCReader.enrich(map);

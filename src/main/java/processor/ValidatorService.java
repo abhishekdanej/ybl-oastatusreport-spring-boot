@@ -33,8 +33,12 @@ public class ValidatorService {
 			log.info("File validations succeeded");
 			return true;
 		} else {
+			log.error("====USAGE===");
 			log.error("java -jar <jarFile> --opr_node_file=\"<path to node file>\""
 					+ " --opr_hc_file=\"<path to hc file\"> --output_dir=\"<output directory for report>\"");
+			log.error("OR");
+			log.error("java -jar target/ybl-oastatusreport-spring-boot-0.0.1-SNAPSHOT.jar "
+					+ "--spring.config.location=/mnt/c/Users/ADanej/Documents/My\\ Stuff/workspace_sts4/ybl-oastatusreport-spring-boot/config.properties");
 			return false;
 		}
 	}
