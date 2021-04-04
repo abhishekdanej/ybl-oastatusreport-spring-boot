@@ -4,7 +4,16 @@ package processor;
 import java.util.ArrayList;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+//@Getter @Setter 
+//@RequiredArgsConstructor
+//@ToString 
+//@EqualsAndHashCode
 @Data
 public class Record {
 
