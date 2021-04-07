@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 /*
  * Author: Abhishek Danej
  * Date: 1 April 2021
@@ -18,28 +17,28 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class YBLSpringBootApplication implements CommandLineRunner {
-	
+
 	Logger log = LoggerFactory.getLogger(YBLSpringBootApplication.class);
-	
+
 	@Autowired
 	private ValidatorService validatorService;
-	
+
 	@Autowired
 	private OprNodeFileReader nodeReader;
 
 	@Autowired
 	private OprHCFileReader hCReader;
-	
+
 	@Autowired
 	private StatusReportWriter reportWriter;
-	
+
 	public static void main(String[] args) {
 		try {
 			SpringApplication.run(YBLSpringBootApplication.class, args);
 		} catch (Exception e) {
 			printUsage();
 		}
-		
+
 	}
 
 	private static void printUsage() {
@@ -52,24 +51,20 @@ public class YBLSpringBootApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		log.info("Application starting.");
-		
-		boolean isValidated = false;
-			isValidated = validatorService.validateInputs(args); 
-		
-		if(isValidated) {
-			Map<String, Record> map = nodeReader.reader();
-			
-			List<Record> recordList = hCReader.enrich(map);
-			
-			log.info("Final processed record count: " + recordList.size());
-			
-			reportWriter.write(recordList);
-		}
+
+//		boolean isValidated = false;
+//			isValidated = validatorService.validateInputs(args); 
+
+		Map<String, Record> map = nodeReader.reader();
+
+		List<Record> recordList = hCReader.enrich(map);
+
+		log.info("Final processed record count: " + recordList.size());
+
+		reportWriter.write(recordList);
 		log.info("Application ending.");
 	}
-
-
 
 }
