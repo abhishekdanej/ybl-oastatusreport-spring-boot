@@ -1,7 +1,26 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
 admin:
   password: Admin_123
   username: admin
-debug: true
+output_dir: /opt/HPBSM
+cmd:
+  oprnode: /opt/HPBSM/opr/bin/opr-node.sh -ln -username admin -password Admin_123
+  hcconfig: /opt/HPBSM/opr/bin/opr-node-hc-config.sh -user admin -password Admin_123 -list_nodes -all -det
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+admin:
+  password: Admin_123
+  username: admin
+output_dir: c:\\Temp
+cmd:
+  oprnode: c:\\HPBSM\\opr\\bin\\opr-node.bat -ln -username admin -password Admin_123
+  hcconfig: c:\\HPBSM\\opr\\bin\\opr-node-hc-config.bat -user admin -password Admin_123 -list_nodes -all -det
+#debug: true
 #opr_node_file: c:\\Temp\\OPR_NODE_OP.csv
 #opr_hc_file: c:\\Temp\\HC_CONFIG_OP.csv
-output_dir: c:\\Temp

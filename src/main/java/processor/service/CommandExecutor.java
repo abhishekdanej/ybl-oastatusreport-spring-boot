@@ -1,4 +1,4 @@
-package processor;
+package processor.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,17 +6,21 @@ import java.io.InputStreamReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import processor.config.ConfigProperties;
 
 @Service
 public class CommandExecutor {
 
 	Logger log = LoggerFactory.getLogger(CommandExecutor.class);
 
+	@Autowired
 	private ConfigProperties props;
 
 	public String getOprNodeOutput() {
-		String command = "opr-node.bat -ln -username " + props.getUsername() + " -password " + props.getPassword();
+		String command = props.getOprnode();
 		return executeCmd(command);
 	}
 
@@ -33,7 +37,7 @@ public class CommandExecutor {
 			String line;
 			System.out.println("before while");
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
+//				System.out.println(line);
 				sb.append(line);
 				sb.append("|-|");
 			}
@@ -41,15 +45,17 @@ public class CommandExecutor {
 			reader.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			log.error(e.getMessage());
 			return null;
 		}
+		log.info("Command output length: " + sb.length());
 		
 		return sb.toString();
 	}
 
 	public String getHCConfigOutput() {
-		String command = "opr-node-hc-config.bat -user " + props.getUsername() + " -password " + props.getPassword() + " -list_nodes -all -det";
+		String command = props.getHcconfig();
 		return executeCmd(command);
 	}
 }

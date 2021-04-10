@@ -1,20 +1,17 @@
-package processor;
+package processor.service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.lang.annotation.Target;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+
+import processor.model.Record;
+import processor.model.RecordDaoImpl;
 
 /*
 Node Ci ID		= 425d3b58e490c23aa6766fa5c21817b3
@@ -42,10 +39,8 @@ public class OprNodeFileReader {
 	@Autowired
 	RecordDaoImpl recordDao;
 	
+	@Autowired
 	private CommandExecutor cmd;
-
-//	@Value("${opr_node_file}")
-//	private String opr_node_file;
 
 	//Map of NodeID vs Record Time
 	public Map<String,Record> reader() {
@@ -54,11 +49,6 @@ public class OprNodeFileReader {
 		Map<String,Record> recordMap = new HashMap<>();
 		
 		try {
-//			log.info("Reading file: " + opr_node_file);
-//			Resource resource = resourceLoader.getResource("file:" + opr_node_file);
-//			BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
-//			String content = br.lines().collect(Collectors.joining("|-|"));
-			
 			String content = cmd.getOprNodeOutput();
 			
 //			log.info(content.substring(0, 1020));
@@ -81,13 +71,7 @@ public class OprNodeFileReader {
 			e.printStackTrace();
 		}
 		
-	log.info("Total records processed: " + recordMap.size());
+	log.info("Total nodes read from opr-node command: " + recordMap.size());
 	return recordMap;
-//	log.info("Printing first 2 records");
-//	log.info(recordList.get(0).toString());
-//	log.info(recordList.get(1).toString());
-//	recordList.subList(0, 10).forEach(e -> {
-//		log.info(e.toString());
-//		});
 	}
 }

@@ -11,6 +11,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
+import processor.config.ConfigProperties;
+import processor.model.Record;
+import processor.service.OprHCFileReader;
+import processor.service.OprNodeFileReader;
+import processor.service.StatusReportWriter;
+import processor.service.ValidatorService;
+
 /*
  * Author: Abhishek Danej
  * Date: 1 April 2021
@@ -58,11 +65,11 @@ public class YBLSpringBootApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		log.info("Application starting.");
-		log.info("Config Properties username:" + props.getUsername());
-		log.debug("Config Properties password:" + props.getPassword());
+		log.info("Config Properties opr-node cmd:" + props.getOprnode());
+		log.info("Config Properties hc-config cmd:" + props.getHcconfig());
 
-//		boolean isValidated = false;
-//			isValidated = validatorService.validateInputs(args); 
+		boolean isValidated = false;
+			isValidated = validatorService.validateInputs(args); 
 
 		Map<String, Record> map = nodeReader.reader();
 

@@ -1,4 +1,4 @@
-package processor;
+package processor.model;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -15,7 +15,7 @@ public class RecordDaoImpl {
 	
 	Logger log = LoggerFactory.getLogger(RecordDaoImpl.class);
 
-	Record createRecord(String str) {
+	public Record createRecord(String str) {
 		Record r = null;
 		
 		log.debug("Inbound: " + str);
@@ -67,7 +67,7 @@ public class RecordDaoImpl {
 
 		log.debug("New record:" + r.toString());
 		
-		Set<String> select = new HashSet();
+		Set<String> select = new HashSet<String>();
 		select.addAll(Arrays.asList("nt", "unix"));
 		
 		if( ! select.contains(r.getCiType())) {

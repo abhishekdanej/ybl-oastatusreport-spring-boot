@@ -1,4 +1,4 @@
-package processor;
+package processor.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import processor.model.Record;
+import processor.model.RecordDaoImpl;
+
 @Service
 public class OprHCFileReader {
 	
@@ -21,25 +24,17 @@ public class OprHCFileReader {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
+	@Autowired
 	private CommandExecutor cmd;
 	
 	@Autowired
 	RecordDaoImpl recordDao;
 
-//	@Value("${opr_hc_file}")
-//	private String opr_hc_file;
-	
-//	private int count = 0;
-
 	public List<Record> enrich(Map<String, Record> map) {
 		
 		List<Record> recordList = new ArrayList<Record>();
 
-//		log.info("Reading file: " + opr_hc_file);
 		try {
-//			Resource resource = resourceLoader.getResource("file:" + opr_hc_file);
-//			BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
-//			String content = br.lines().collect(Collectors.joining("|-|"));
 
 			String content = cmd.getHCConfigOutput();
 			
