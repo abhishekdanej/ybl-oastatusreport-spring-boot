@@ -2,13 +2,14 @@ package processor;
 
 import java.util.List;
 import java.util.Map;
-
+//
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 /*
  * Author: Abhishek Danej
@@ -16,9 +17,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 public class YBLSpringBootApplication implements CommandLineRunner {
 
-	Logger log = LoggerFactory.getLogger(YBLSpringBootApplication.class);
+	Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private ValidatorService validatorService;
@@ -31,6 +33,9 @@ public class YBLSpringBootApplication implements CommandLineRunner {
 
 	@Autowired
 	private StatusReportWriter reportWriter;
+	
+	@Autowired
+	private ConfigProperties props;
 
 	public static void main(String[] args) {
 		try {
@@ -53,6 +58,8 @@ public class YBLSpringBootApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		log.info("Application starting.");
+		log.info("Config Properties username:" + props.getUsername());
+		log.debug("Config Properties password:" + props.getPassword());
 
 //		boolean isValidated = false;
 //			isValidated = validatorService.validateInputs(args); 

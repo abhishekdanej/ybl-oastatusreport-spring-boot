@@ -1,27 +1,19 @@
 package processor;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import org.junit.jupiter.api.Test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-@Service
-public class CommandExecutor {
-
-	Logger log = LoggerFactory.getLogger(CommandExecutor.class);
-
-	private ConfigProperties props;
+class TestParsing {
 
 	public String getOprNodeOutput() {
-		String command = "opr-node.bat -ln -username " + props.getUsername() + " -password " + props.getPassword();
-		return executeCmd(command);
-	}
-
-	private String executeCmd(String command) {
-		log.info("Command is: " + command);
+		
+//		String command = "opr-node-hc-config.bat -user " + props.getUsername() + " -password " + props.getPassword() + " -list_nodes -all -det";
+		String command = "systeminfo";
+		System.out.println("Command is: " + command);
 		StringBuilder sb = new StringBuilder();
 
 		try {
@@ -33,7 +25,7 @@ public class CommandExecutor {
 			String line;
 			System.out.println("before while");
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
+//				System.out.println(line);
 				sb.append(line);
 				sb.append("|-|");
 			}
@@ -48,8 +40,14 @@ public class CommandExecutor {
 		return sb.toString();
 	}
 
-	public String getHCConfigOutput() {
-		String command = "opr-node-hc-config.bat -user " + props.getUsername() + " -password " + props.getPassword() + " -list_nodes -all -det";
-		return executeCmd(command);
+	
+	@Test
+	void test() {
+		
+		String input = getOprNodeOutput();
+		String[] lines = input.split("\\|-\\|");
+		System.out.println("Length is: " + lines[1]);
+		assertTrue(lines[1].contains("INADANEJ01"));
 	}
+
 }

@@ -1,0 +1,7 @@
+admin:
+  password: Admin_123
+  username: admin
+debug: true
+#opr_node_file: c:\\Temp\\OPR_NODE_OP.csv
+#opr_hc_file: c:\\Temp\\HC_CONFIG_OP.csv
+output_dir: c:\\Temp

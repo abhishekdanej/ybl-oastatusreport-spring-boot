@@ -1,7 +1,5 @@
 package processor;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +10,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +21,13 @@ public class OprHCFileReader {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
+	private CommandExecutor cmd;
+	
 	@Autowired
 	RecordDaoImpl recordDao;
 
-	@Value("${opr_hc_file}")
-	private String opr_hc_file;
+//	@Value("${opr_hc_file}")
+//	private String opr_hc_file;
 	
 //	private int count = 0;
 
@@ -37,12 +35,13 @@ public class OprHCFileReader {
 		
 		List<Record> recordList = new ArrayList<Record>();
 
-		log.info("Reading file: " + opr_hc_file);
+//		log.info("Reading file: " + opr_hc_file);
 		try {
-			Resource resource = resourceLoader.getResource("file:" + opr_hc_file);
-			BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
-			
-			String content = br.lines().collect(Collectors.joining("|-|"));
+//			Resource resource = resourceLoader.getResource("file:" + opr_hc_file);
+//			BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
+//			String content = br.lines().collect(Collectors.joining("|-|"));
+
+			String content = cmd.getHCConfigOutput();
 			
 			List<String> data = Arrays.asList(content.split("----------------------------------------------------"));
 			

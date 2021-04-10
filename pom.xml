@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.danej</groupId>
 	<artifactId>ybl-oastatusreport-spring-boot</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-executecmd</version>
 	<name>ybl-oastatusreport-spring-boot</name>
 	<description>Report Generator App</description>
 	<properties>
@@ -33,6 +33,13 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.18</version>
 		</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>
+						spring-boot-configuration-processor
+					</artifactId>
+					<optional>true</optional>
+				</dependency>
 	</dependencies>
 
 	<build>

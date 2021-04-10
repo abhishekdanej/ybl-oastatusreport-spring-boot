@@ -2,6 +2,7 @@ package processor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.lang.annotation.Target;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -40,21 +41,26 @@ public class OprNodeFileReader {
 	
 	@Autowired
 	RecordDaoImpl recordDao;
+	
+	private CommandExecutor cmd;
 
-	@Value("${opr_node_file}")
-	private String opr_node_file;
+//	@Value("${opr_node_file}")
+//	private String opr_node_file;
 
+	//Map of NodeID vs Record Time
 	public Map<String,Record> reader() {
 //		ArrayList<Record> recordList = new ArrayList<Record>();
 		
 		Map<String,Record> recordMap = new HashMap<>();
 		
 		try {
-			log.info("Reading file: " + opr_node_file);
-			Resource resource = resourceLoader.getResource("file:" + opr_node_file);
-			BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
+//			log.info("Reading file: " + opr_node_file);
+//			Resource resource = resourceLoader.getResource("file:" + opr_node_file);
+//			BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
+//			String content = br.lines().collect(Collectors.joining("|-|"));
 			
-			String content = br.lines().collect(Collectors.joining("|-|"));
+			String content = cmd.getOprNodeOutput();
+			
 //			log.info(content.substring(0, 1020));
 			
 			List<String> data = Arrays.asList(content.split("----------------------------------------------------"));
