@@ -27,7 +27,7 @@ import processor.service.ValidatorService;
 @ConfigurationPropertiesScan
 public class YBLSpringBootApplication implements CommandLineRunner {
 
-	Logger log = LoggerFactory.getLogger(this.getClass());
+	Logger log = LoggerFactory.getLogger(YBLSpringBootApplication.class);
 
 	@Autowired
 	private ValidatorService validatorService;
@@ -55,10 +55,7 @@ public class YBLSpringBootApplication implements CommandLineRunner {
 
 	private static void printUsage() {
 		System.out.println("=== USAGE ===");
-		System.out.println("java -jar <jarFile> --opr_node_file=/opt/<path to node file>"
-				+ " --opr_hc_file=/opt/<path to hc file --output_dir=/opt/<output directory for report>");
-		System.out.println("OR");
-		System.out.println("java -jar <jarFile> --spring.config.location=/opt/<path_to_config_file>/config.properties");
+		System.out.println("java -jar <jarFile> --spring.config.location=/opt/<path_to_config_file>/config.yml --spring.profiles.active=<dev/prod>");
 	}
 
 	@Override
@@ -71,13 +68,17 @@ public class YBLSpringBootApplication implements CommandLineRunner {
 		boolean isValidated = false;
 			isValidated = validatorService.validateInputs(args); 
 
-		Map<String, Record> map = nodeReader.reader();
+		if(isValidated) {
 
-		List<Record> recordList = hCReader.enrich(map);
-
-		log.info("Final processed record count: " + recordList.size());
-
-		reportWriter.write(recordList);
+			Map<String, Record> map = nodeReader.reader();
+			
+			List<Record> recordList = hCReader.enrich(map);
+			
+			log.info("Final processed record count: " + recordList.size());
+			
+			reportWriter.write(recordList);
+		}
+			
 		log.info("Application ending.");
 	}
 

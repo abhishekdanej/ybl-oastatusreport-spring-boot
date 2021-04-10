@@ -21,6 +21,3 @@ output_dir: c:\\Temp
 cmd:
   oprnode: c:\\HPBSM\\opr\\bin\\opr-node.bat -ln -username admin -password Admin_123
   hcconfig: c:\\HPBSM\\opr\\bin\\opr-node-hc-config.bat -user admin -password Admin_123 -list_nodes -all -det
-logging:
-  level:
-    processor: info
